@@ -102,8 +102,10 @@ public class VoteServiceImpl implements VoteService {
     }
 
     public int averageAge() {
-        return votingList.stream()
-                .map(Voter::getCounter)
-                .reduce(0, (a, b) -> (a + b) / 2);
+        int sum = 0;
+        for(Voter age : votingList){
+            sum+= age.getAge();
+        }
+        return sum/votingList.size();
     }
 }

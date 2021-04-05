@@ -106,4 +106,15 @@ class VoteServiceImplTest {
         assertEquals(3, counter);
     }
 
+    @Test
+    void averageAgeTest(){
+        int sum = 0;
+        for(Voter age : voters){
+            sum+= age.getAge();
+        }
+        sum = sum / voters.size();
+
+        assertEquals(35,sum);
+    }
+
 }
