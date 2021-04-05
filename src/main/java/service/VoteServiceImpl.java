@@ -101,5 +101,9 @@ public class VoteServiceImpl implements VoteService {
         this.votingList = votingList;
     }
 
-
+    public int averageAge() {
+        return votingList.stream()
+                .map(Voter::getCounter)
+                .reduce(0, (a, b) -> (a + b) / 2);
+    }
 }

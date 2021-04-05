@@ -18,7 +18,7 @@ REGION:
 VOTERS:
 *Collect and save age of voter.
 *Collect and save gender of voter.
-*Find the age range of voters, etc. Range from 7 to 18, from 19 to 30, from 31 to 50, from 51 to 100.
+*Find average voter age.
 *Find out the which gender were most active.
 
 DATE:

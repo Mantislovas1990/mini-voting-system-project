@@ -105,4 +105,5 @@ class VoteServiceImplTest {
         }
         assertEquals(3, counter);
     }
+
 }
