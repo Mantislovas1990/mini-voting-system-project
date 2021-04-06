@@ -8,12 +8,10 @@ import service.VoteServiceImpl;
 import util.DateTime;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class VoteServiceImplTest {
-
 
 
     Voter firstVoter = new Voter(20, Gender.MALE, City.VILNIUS, Candidates.KAZYS_VOLCIUNAS, DateTime.date());
@@ -25,7 +23,7 @@ class VoteServiceImplTest {
 
     @BeforeEach
     void init() {
-        service.setVotingList( new ArrayList<>());
+        service.setVotingList(new ArrayList<>());
         service.addVoter(firstVoter);
         service.addVoter(secondVoter);
         service.addVoter(thirdVoter);
@@ -68,37 +66,37 @@ class VoteServiceImplTest {
     }
 
     @Test
-    void getMostActiveGenderTest(){
+    void getMostActiveGenderTest() {
 
         Gender activeGender = service.getMostActiveGender();
         assertEquals(Gender.MALE, activeGender);
     }
 
     @Test
-    void getFemaleCountTest(){
+    void getFemaleCountTest() {
 
         int femaleVotes = service.getFemaleCount();
         assertEquals(1, femaleVotes);
     }
 
     @Test
-    void getMaleGenderTest(){
+    void getMaleGenderTest() {
 
         int maleVotes = service.getMaleCount();
         assertEquals(3, maleVotes);
     }
 
     @Test
-    void averageAgeTest(){
+    void averageAgeTest() {
         int aveAge = service.getAverageAge();
 
         assertEquals(35, aveAge);
     }
 
     @Test
-    void getWinnerOfElectionTest(){
+    void getWinnerOfElectionTest() {
         Candidates winner = service.getWinnerOfElection();
-        assertEquals(Candidates.KAZYS_VOLCIUNAS,winner);
+        assertEquals(Candidates.KAZYS_VOLCIUNAS, winner);
     }
 
 }

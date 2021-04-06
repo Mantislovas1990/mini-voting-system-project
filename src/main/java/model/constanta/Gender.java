@@ -15,8 +15,8 @@ public enum Gender {
     }
 
     public static Gender convert(int source) {
-        for(Gender mop : Gender.values()) {
-            if(mop.getGender() == source) {
+        for (Gender mop : Gender.values()) {
+            if (mop.getGender() == source) {
                 return mop;
             }
         }

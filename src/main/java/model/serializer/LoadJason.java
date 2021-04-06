@@ -14,6 +14,7 @@ public class LoadJason {
     public List<Voter> loadRecordsFromFile() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(new File("votingInfo.json"), new TypeReference<>() {});
+        return mapper.readValue(new File("votingInfo.json"), new TypeReference<>() {
+        });
     }
 }

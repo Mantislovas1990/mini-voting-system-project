@@ -103,9 +103,9 @@ public class VoteServiceImpl implements VoteService {
 
     public int getAverageAge() {
         int sum = 0;
-        for(Voter age : votingList){
-            sum+= age.getAge();
+        for (Voter age : votingList) {
+            sum += age.getAge();
         }
-        return sum/votingList.size();
+        return sum / votingList.size();
     }
 }

@@ -5,7 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class DateTime {
 
-    private DateTime() {}
+    private DateTime() {
+    }
 
     public static String date() {
         LocalDateTime localDateTime = LocalDateTime.now();

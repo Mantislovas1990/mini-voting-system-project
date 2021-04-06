@@ -27,7 +27,7 @@ public class Voter {
     @Override
     public String toString() {
         return String.format("%n==========%nCANDIDATE NAME = %s%nDATE = %s%nVOTERS AGE = %d%nGENDER = %s%nCITY: %s%n==========%n",
-                 candidate, date, age, gender, city);
+                candidate, date, age, gender, city);
     }
 
     public int getAge() {

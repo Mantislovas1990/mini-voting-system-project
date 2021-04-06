@@ -15,8 +15,8 @@ public enum City {
     }
 
     public static City convert(int source) {
-        for(City mop : City.values()) {
-            if(mop.getCity() == source) {
+        for (City mop : City.values()) {
+            if (mop.getCity() == source) {
                 return mop;
             }
         }
