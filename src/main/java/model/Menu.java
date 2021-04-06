@@ -45,7 +45,7 @@ public class Menu {
                         System.out.println(voteServiceImpl.getMostActiveGender());
                         break;
                     case 7:
-                        System.out.println( voteServiceImpl.getCandidateVoteCount(menuService.candidates(sc)));
+                        System.out.println(voteServiceImpl.getCandidateVoteCount(menuService.candidates(sc)));
                     case 8:
                         SaveJason saveJason = new SaveJason();
                         saveJason.saveRecordsToFile(voteServiceImpl);

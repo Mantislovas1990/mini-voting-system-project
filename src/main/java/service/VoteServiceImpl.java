@@ -101,7 +101,7 @@ public class VoteServiceImpl implements VoteService {
         this.votingList = votingList;
     }
 
-    public int averageAge() {
+    public int getAverageAge() {
         int sum = 0;
         for(Voter age : votingList){
             sum+= age.getAge();
