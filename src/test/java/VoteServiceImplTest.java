@@ -1,11 +1,11 @@
-import model.Voter;
-import model.constanta.Candidates;
-import model.constanta.City;
-import model.constanta.Gender;
+import lt.codeacademy.entities.Voter;
+import lt.codeacademy.model.constanta.Candidates;
+import lt.codeacademy.model.constanta.City;
+import lt.codeacademy.model.constanta.Gender;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import service.VoteServiceImpl;
-import util.DateTime;
+import lt.codeacademy.service.VoteServiceImpl;
+import lt.codeacademy.util.DateTime;
 
 import java.util.ArrayList;
 
@@ -37,9 +37,9 @@ class VoteServiceImplTest {
 
     @Test
     void getTotalCountOfVotesTest() {
-        int voteCount = service.getTotalCountOfVotes();
+        Long voteCount = service.getTotalCountOfVotes();
 
-        assertEquals(4, voteCount);
+        assertEquals(4L, voteCount);
     }
 
     @Test
@@ -61,7 +61,7 @@ class VoteServiceImplTest {
     @Test
     void getKaunasCityVoteNumber() {
 
-        int kaunasVotes = service.getKaunasCityVoteNumber();
+        Long kaunasVotes = service.getKaunasCityVoteNumber();
         assertEquals(1, kaunasVotes);
     }
 
@@ -75,14 +75,14 @@ class VoteServiceImplTest {
     @Test
     void getFemaleCountTest() {
 
-        int femaleVotes = service.getFemaleCount();
+        Long femaleVotes = service.getFemaleCount();
         assertEquals(1, femaleVotes);
     }
 
     @Test
     void getMaleGenderTest() {
 
-        int maleVotes = service.getMaleCount();
+        Long maleVotes = service.getMaleCount();
         assertEquals(3, maleVotes);
     }
 

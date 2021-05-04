@@ -9,3 +9,5 @@ dependency-reduced-pom.xml
 *.iml
 log/
 *.json
+*.iws
+*.ipr

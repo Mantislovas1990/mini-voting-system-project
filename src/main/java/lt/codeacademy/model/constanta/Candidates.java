@@ -1,4 +1,4 @@
-package model.constanta;
+package lt.codeacademy.model.constanta;
 
 public enum Candidates {
     KAZYS_VOLCIUNAS(1),

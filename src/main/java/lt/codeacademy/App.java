@@ -1,4 +1,6 @@
-import model.Menu;
+package lt.codeacademy;
+
+import lt.codeacademy.model.Menu;
 
 import java.io.IOException;
 

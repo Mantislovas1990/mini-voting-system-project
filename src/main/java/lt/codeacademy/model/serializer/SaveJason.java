@@ -1,8 +1,8 @@
-package model.serializer;
+package lt.codeacademy.model.serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import service.VoteServiceImpl;
+import lt.codeacademy.service.VoteServiceImpl;
 
 import java.io.File;
 import java.io.IOException;

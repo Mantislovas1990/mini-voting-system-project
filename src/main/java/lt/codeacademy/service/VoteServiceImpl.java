@@ -1,9 +1,9 @@
-package service;
+package lt.codeacademy.service;
 
-import model.Voter;
-import model.constanta.Candidates;
-import model.constanta.City;
-import model.constanta.Gender;
+import lt.codeacademy.entities.Voter;
+import lt.codeacademy.model.constanta.Candidates;
+import lt.codeacademy.model.constanta.City;
+import lt.codeacademy.model.constanta.Gender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +24,8 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Integer getTotalCountOfVotes() {
-        return votingList.stream()
-                .map(Voter::getCounter)
-                .reduce(0, Integer::sum);
+    public Long getTotalCountOfVotes() {
+        return Voter.getCounter();
     }
 
     @Override
@@ -58,43 +56,39 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public Integer getVilniusCityVoteNumber() {
+    public Long getVilniusCityVoteNumber() {
         return votingList.stream()
                 .filter(city -> city.getCity() == City.VILNIUS)
-                .map(Voter::getCounter)
-                .reduce(0, Integer::sum);
+                .count();
     }
 
     @Override
-    public Integer getKaunasCityVoteNumber() {
+    public Long getKaunasCityVoteNumber() {
         return votingList.stream()
                 .filter(city -> city.getCity() == City.KAUNAS)
-                .map(Voter::getCounter)
-                .reduce(0, Integer::sum);
+                .count();
     }
 
     @Override
     public Gender getMostActiveGender() {
-        if (getKaunasCityVoteNumber() < getVilniusCityVoteNumber()) {
+        if (getMaleCount() > getFemaleCount()) {
             return Gender.MALE;
         }
         return Gender.FEMALE;
     }
 
     @Override
-    public Integer getMaleCount() {
+    public Long getMaleCount() {
         return votingList.stream()
                 .filter(gender -> gender.getGender() == Gender.MALE)
-                .map(Voter::getCounter)
-                .reduce(0, Integer::sum);
+                .count();
     }
 
     @Override
-    public Integer getFemaleCount() {
+    public Long getFemaleCount() {
         return votingList.stream()
                 .filter(gender -> gender.getGender() == Gender.FEMALE)
-                .map(Voter::getCounter)
-                .reduce(0, Integer::sum);
+                .count();
     }
 
     public void setVotingList(List<Voter> votingList) {

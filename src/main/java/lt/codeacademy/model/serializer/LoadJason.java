@@ -1,9 +1,9 @@
-package model.serializer;
+package lt.codeacademy.model.serializer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.Voter;
+import lt.codeacademy.entities.Voter;
 
 import java.io.File;
 import java.io.IOException;

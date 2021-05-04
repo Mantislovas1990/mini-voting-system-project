@@ -1,9 +1,9 @@
-package model;
+package lt.codeacademy.model;
 
-import model.serializer.LoadJason;
-import model.serializer.SaveJason;
-import service.MenuService;
-import service.VoteServiceImpl;
+import lt.codeacademy.model.serializer.SaveJason;
+import lt.codeacademy.model.serializer.LoadJason;
+import lt.codeacademy.service.MenuService;
+import lt.codeacademy.service.VoteServiceImpl;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -46,6 +46,7 @@ public class Menu {
                         break;
                     case 7:
                         System.out.println(voteServiceImpl.getCandidateVoteCount(menuService.candidates(sc)));
+                        break;
                     case 8:
                         SaveJason saveJason = new SaveJason();
                         saveJason.saveRecordsToFile(voteServiceImpl);

@@ -1,13 +1,13 @@
-package service;
+package lt.codeacademy.service;
 
-import model.Voter;
-import model.constanta.Candidates;
-import model.constanta.City;
-import model.constanta.Gender;
+import lt.codeacademy.entities.Voter;
+import lt.codeacademy.model.constanta.Candidates;
+import lt.codeacademy.model.constanta.City;
+import lt.codeacademy.model.constanta.Gender;
 
 import java.util.Scanner;
 
-import static util.DateTime.date;
+import static lt.codeacademy.util.DateTime.date;
 
 public class MenuService {
 
@@ -33,8 +33,8 @@ public class MenuService {
         System.out.println("CHOOSE YOUR CANDIDATE:\n[1] -> KAZYS_VOLCIUNAS\n[2] -> PRANAS_NUZMAUSKAS");
         Candidates chooseYourCandidate = Candidates.convert(sc.nextInt());
 
-
         voteServiceImpl.addVoter(new Voter(age, chooseYourGender, chooseYourCity, chooseYourCandidate, date()));
+
     }
 
     public Candidates candidates(Scanner sc) {
