@@ -1,34 +1,107 @@
 package lt.codeacademy.service;
 
-
 import lt.codeacademy.entities.Voter;
+import lt.codeacademy.model.VoteInterface;
 import lt.codeacademy.model.constanta.Candidates;
 import lt.codeacademy.model.constanta.City;
 import lt.codeacademy.model.constanta.Gender;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public interface VoteService {
+public class VoteService implements VoteInterface {
 
-    void addVoter(Voter voter);
 
-    List<Voter> getAllVoters();
+    private List<Voter> votingList = new ArrayList<>();
 
-    Long getTotalCountOfVotes();
+    @Override
+    public Voter addVoter(Voter voter) {
+        votingList.add(voter);
+        return voter;
+    }
 
-    int getCandidateVoteCount(Candidates candidates);
+    @Override
+    public List<Voter> getAllVoters() {
+        return votingList;
+    }
 
-    Candidates getWinnerOfElection();
+    @Override
+    public Long getTotalCountOfVotes() {
+        return Voter.getCounter();
+    }
 
-    Long getVilniusCityVoteNumber();
+    @Override
+    public int getCandidateVoteCount(Candidates candidates) {
+        int counter = 0;
+        for (Voter candidate : votingList) {
+            if (candidates.equals(candidate.getCandidate())) {
+                counter++;
+            }
+        }
+        return counter;
+    }
 
-    Long getKaunasCityVoteNumber();
+    @Override
+    public Candidates getWinnerOfElection() {
+        if (getCandidateVoteCount(Candidates.KAZYS_VOLCIUNAS) > getCandidateVoteCount(Candidates.PRANAS_NUZMAUSKAS)) {
+            return Candidates.KAZYS_VOLCIUNAS;
+        }
+        return Candidates.PRANAS_NUZMAUSKAS;
+    }
 
-    City getMostActiveVotingCity();
+    @Override
+    public City getMostActiveVotingCity() {
+        if (getKaunasCityVoteNumber() < getVilniusCityVoteNumber()) {
+            return City.VILNIUS;
+        }
+        return City.KAUNAS;
+    }
 
-    Gender getMostActiveGender();
+    @Override
+    public Long getVilniusCityVoteNumber() {
+        return votingList.stream()
+                .filter(city -> city.getCity() == City.VILNIUS)
+                .count();
+    }
 
-    Long getMaleCount();
+    @Override
+    public Long getKaunasCityVoteNumber() {
+        return votingList.stream()
+                .filter(city -> city.getCity() == City.KAUNAS)
+                .count();
+    }
 
-    Long getFemaleCount();
+    @Override
+    public Gender getMostActiveGender() {
+        if (getMaleCount() > getFemaleCount()) {
+            return Gender.MALE;
+        }
+        return Gender.FEMALE;
+    }
+
+    @Override
+    public Long getMaleCount() {
+        return votingList.stream()
+                .filter(gender -> gender.getGender() == Gender.MALE)
+                .count();
+    }
+
+    @Override
+    public Long getFemaleCount() {
+        return votingList.stream()
+                .filter(gender -> gender.getGender() == Gender.FEMALE)
+                .count();
+    }
+
+    public void setVotingList(List<Voter> votingList) {
+        this.votingList = votingList;
+    }
+
+    public int getAverageAge() {
+        int sum = 0;
+        for (Voter age : votingList) {
+            sum += age.getAge();
+        }
+        return sum / votingList.size();
+    }
 }

@@ -14,30 +14,39 @@ public class Voter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "age")
     private int age;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "city")
     private City city;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "candidate")
     private Candidates candidate;
 
 
+    @Transient
     private String date;
+
+    @Transient
     private static Long counter = 0L;
+
+    public Voter() {
+    }
 
     public Voter(int age, Gender gender, City city, Candidates candidate, String date) {
         this.age = age;
         this.gender = gender;
-
         this.city = city;
         this.candidate = candidate;
         this.date = date;
         counter++;
-    }
-
-    public Voter() {
     }
 
     @Override

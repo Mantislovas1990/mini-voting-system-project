@@ -1,5 +1,6 @@
 package lt.codeacademy.service;
 
+import lt.codeacademy.config.HibernateConfig;
 import lt.codeacademy.entities.Voter;
 import lt.codeacademy.model.constanta.Candidates;
 import lt.codeacademy.model.constanta.City;
@@ -11,10 +12,12 @@ import static lt.codeacademy.util.DateTime.date;
 
 public class MenuService {
 
-    VoteServiceImpl voteServiceImpl;
+    VoteService voteServiceImpl;
+    VoterService voterService;
 
-    public MenuService(VoteServiceImpl voteServiceImpl) {
+    public MenuService(VoteService voteServiceImpl, VoterService voterService) {
         this.voteServiceImpl = voteServiceImpl;
+        this.voterService =  voterService;
     }
 
     public void menuAddVoter(Scanner sc) {
@@ -33,7 +36,10 @@ public class MenuService {
         System.out.println("CHOOSE YOUR CANDIDATE:\n[1] -> KAZYS_VOLCIUNAS\n[2] -> PRANAS_NUZMAUSKAS");
         Candidates chooseYourCandidate = Candidates.convert(sc.nextInt());
 
-        voteServiceImpl.addVoter(new Voter(age, chooseYourGender, chooseYourCity, chooseYourCandidate, date()));
+        Voter voter = voteServiceImpl.addVoter(new Voter(age, chooseYourGender, chooseYourCity, chooseYourCandidate, date()));
+
+        HibernateConfig.buildSessionFactory();
+        voterService.save(voter);
 
     }
 

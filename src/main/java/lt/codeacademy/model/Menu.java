@@ -1,17 +1,19 @@
 package lt.codeacademy.model;
 
-import lt.codeacademy.model.serializer.SaveJason;
 import lt.codeacademy.model.serializer.LoadJason;
+import lt.codeacademy.model.serializer.SaveJason;
 import lt.codeacademy.service.MenuService;
-import lt.codeacademy.service.VoteServiceImpl;
+import lt.codeacademy.service.VoteService;
+import lt.codeacademy.service.VoterService;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
 
-    private final VoteServiceImpl voteServiceImpl = new VoteServiceImpl();
-    private final MenuService menuService = new MenuService(voteServiceImpl);
+    private final VoteService voteServiceImpl = new VoteService();
+    private final VoterService voterService = new VoterService();
+    private final MenuService menuService = new MenuService(voteServiceImpl,voterService);
 
     public void run() throws IOException {
 
