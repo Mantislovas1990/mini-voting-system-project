@@ -2,7 +2,6 @@ package lt.codeacademy.model;
 
 
 import lt.codeacademy.entities.Voter;
-import lt.codeacademy.model.constanta.Candidates;
 import lt.codeacademy.model.constanta.City;
 import lt.codeacademy.model.constanta.Gender;
 
@@ -14,11 +13,9 @@ public interface VoteInterface {
 
     List<Voter> getAllVoters();
 
-    Long getTotalCountOfVotes();
+//    int getCandidateVoteCount(Candidates candidates);
 
-    int getCandidateVoteCount(Candidates candidates);
-
-    Candidates getWinnerOfElection();
+//    Candidates getWinnerOfElection();
 
     Long getVilniusCityVoteNumber();
 

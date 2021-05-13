@@ -1,7 +1,7 @@
 package lt.codeacademy.model;
 
-import lt.codeacademy.model.serializer.LoadJason;
-import lt.codeacademy.model.serializer.SaveJason;
+import lt.codeacademy.config.HibernateConfig;
+import lt.codeacademy.service.CandidateService;
 import lt.codeacademy.service.MenuService;
 import lt.codeacademy.service.VoteService;
 import lt.codeacademy.service.VoterService;
@@ -13,7 +13,8 @@ public class Menu {
 
     private final VoteService voteServiceImpl = new VoteService();
     private final VoterService voterService = new VoterService();
-    private final MenuService menuService = new MenuService(voteServiceImpl,voterService);
+    private final CandidateService candidateService = new CandidateService();
+    private final MenuService menuService = new MenuService(voteServiceImpl, voterService,candidateService);
 
     public void run() throws IOException {
 
@@ -29,37 +30,44 @@ public class Menu {
                 int chooseAction = menuService.action(sc.nextInt());
                 switch (chooseAction) {
                     case 1:
+                        HibernateConfig.buildSessionFactory();
                         menuService.menuAddVoter(sc);
                         break;
                     case 2:
-                        voteServiceImpl.getAllVoters().forEach(System.out::println);
+                        HibernateConfig.buildSessionFactory();
+                        voterService.getAllVoters().forEach(System.out::println);
                         break;
                     case 3:
-                        System.out.println(voteServiceImpl.getTotalCountOfVotes());
+                        HibernateConfig.buildSessionFactory();
+                        System.out.println("Enter entity");
+                        System.out.println("Total count: " + voterService.getTotalCount(sc.next()));
                         break;
                     case 4:
-                        System.out.println(voteServiceImpl.getWinnerOfElection());
+                        HibernateConfig.buildSessionFactory();
+                        voterService.getVoteCountByCity().forEach(item -> System.out.println("City: " + item[0] +"\nCount: " + item[1]));
                         break;
                     case 5:
-                        System.out.println(voteServiceImpl.getMostActiveVotingCity());
+                        HibernateConfig.buildSessionFactory();
+                        voterService.getVoteCountByGender().forEach(item -> System.out.println("Gender: " + item[0] +"\nCount: " + item[1]));
                         break;
                     case 6:
-                        System.out.println(voteServiceImpl.getMostActiveGender());
+                        HibernateConfig.buildSessionFactory();
+                        System.out.println(candidateService.getWinnerOfElection());
                         break;
+
                     case 7:
-                        System.out.println(voteServiceImpl.getCandidateVoteCount(menuService.candidates(sc)));
+
                         break;
                     case 8:
-                        SaveJason saveJason = new SaveJason();
-                        saveJason.saveRecordsToFile(voteServiceImpl);
+
                         break;
                     case 9:
-                        LoadJason loadJason = new LoadJason();
-                        voteServiceImpl.setVotingList(loadJason.loadRecordsFromFile());
+
                         break;
                     case 0:
                         run = false;
                         System.out.println("\nPROGRAM IS CLOSING................\n=====================\nHAVE A GREAT DAY!");
+                        HibernateConfig.closeSessionFactory();
                         break;
                     default:
                         System.out.println("ERROR!\n==============\nUNRECOGNISED INPUT!");

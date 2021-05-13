@@ -2,7 +2,6 @@ package lt.codeacademy.service;
 
 import lt.codeacademy.entities.Voter;
 import lt.codeacademy.model.VoteInterface;
-import lt.codeacademy.model.constanta.Candidates;
 import lt.codeacademy.model.constanta.City;
 import lt.codeacademy.model.constanta.Gender;
 
@@ -16,7 +15,7 @@ public class VoteService implements VoteInterface {
 
     @Override
     public Voter addVoter(Voter voter) {
-        votingList.add(voter);
+//        votingList.add(voter);
         return voter;
     }
 
@@ -25,29 +24,6 @@ public class VoteService implements VoteInterface {
         return votingList;
     }
 
-    @Override
-    public Long getTotalCountOfVotes() {
-        return Voter.getCounter();
-    }
-
-    @Override
-    public int getCandidateVoteCount(Candidates candidates) {
-        int counter = 0;
-        for (Voter candidate : votingList) {
-            if (candidates.equals(candidate.getCandidate())) {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    @Override
-    public Candidates getWinnerOfElection() {
-        if (getCandidateVoteCount(Candidates.KAZYS_VOLCIUNAS) > getCandidateVoteCount(Candidates.PRANAS_NUZMAUSKAS)) {
-            return Candidates.KAZYS_VOLCIUNAS;
-        }
-        return Candidates.PRANAS_NUZMAUSKAS;
-    }
 
     @Override
     public City getMostActiveVotingCity() {
@@ -103,5 +79,10 @@ public class VoteService implements VoteInterface {
             sum += age.getAge();
         }
         return sum / votingList.size();
+    }
+
+    public List<Voter> removeRecord(int id) {
+        votingList.removeIf(vote -> vote.getId() == id);
+        return votingList;
     }
 }
