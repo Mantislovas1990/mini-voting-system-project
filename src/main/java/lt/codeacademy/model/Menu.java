@@ -41,24 +41,23 @@ public class Menu {
                         break;
                     case 4:
                         HibernateConfig.buildSessionFactory();
-                        voterService.getVoteCountByCity().forEach(item -> System.out.println("City: " + item[0] +"\nCount: " + item[1]));
+                        voterService.getVoteCountByCity().forEach(item ->
+                                System.out.println("City: " + item[0] +"\nCount: " + item[1]));
                         break;
                     case 5:
                         HibernateConfig.buildSessionFactory();
-                        voterService.getVoteCountByGender().forEach(item -> System.out.println("Gender: " + item[0] +"\nCount: " + item[1]));
+                        voterService.getVoteCountByGender().forEach(item ->
+                                System.out.println("Gender: " + item[0] +"\nCount: " + item[1]));
                         break;
                     case 6:
                         HibernateConfig.buildSessionFactory();
-                        candidateService.getWinnerOfElection().forEach(item -> System.out.println("Winner is: " + item[0]+ " " + item[1] +"\nVote Count: " + item[2]));
+                        candidateService.getWinnerOfElection().forEach(item ->
+                                System.out.println("Winner is: " + item[0]+ " " + item[1] +"\nVote Count: " + item[2]));
                         break;
                     case 7:
-
-                        break;
-                    case 8:
-
-                        break;
-                    case 9:
-
+                        HibernateConfig.buildSessionFactory();
+                        System.out.println("CHOOSE ID TO DELETE\n" + voterService.getAllVoters());
+                        voterService.delete(sc.nextLong());
                         break;
                     case 0:
                         run = false;
@@ -78,7 +77,7 @@ public class Menu {
 
     private String getMenuText() {
         return "\nCHOOSE ACTION:\n---------------------\n[1] -> ADD YOUR VOTE\n[2] -> GET LIST OF VOTES \n[3] -> GET VOTE COUNT" +
-                "\n[4] -> WHO WON ELECTION \n[5] -> MOST ACTIVE VOTING CITY\n[6] -> MOST ACTIVE VOTING GENDER\n" +
-                "[7] -> SHOW VOTE NUMBERS BY CANDIDATE\n[8] -> SAVE DATA TO FILE\n[9] -> GET DATA FROM FILE\n[0] -> CLOSE THE PROGRAM\n---------------------";
+                "\n[4] -> VOTE COUNT BY CITY\n[5] -> VOTE COUNT BY GENDER\n[6] -> WINNER OF ELECTION\n" +
+                "[7] -> DELETE CANDIDATE\n[0] -> CLOSE THE PROGRAM\n---------------------";
     }
 }

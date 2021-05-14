@@ -2,7 +2,6 @@ package lt.codeacademy.service;
 
 import lt.codeacademy.config.HibernateConfig;
 import lt.codeacademy.entities.Candidate;
-import lt.codeacademy.entities.Voter;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -79,8 +78,8 @@ public class CandidateService {
             CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
             Root<Candidate> root = criteriaQuery.from(Candidate.class);
             root.join("voters");
-            criteriaQuery.multiselect(root.get("lastName"), root.get("firstName"), criteriaBuilder.count(root.get("lastName")));
-            criteriaQuery.groupBy((root.get("lastName")),root.get("firstName"));
+            criteriaQuery.multiselect(root.get("lastName"), root.get("firstName"), criteriaBuilder.count(root.get("lastName"))).toString();
+            criteriaQuery.groupBy((root.get("lastName")),root.get("firstName")).toString();
             criteriaQuery.orderBy(criteriaBuilder.desc(root.get("lastName")));
             Query<Object[]> query = session.createQuery(criteriaQuery).setMaxResults(1);
 
@@ -91,5 +90,6 @@ public class CandidateService {
         }
         return Collections.emptyList();
     }
+
 }
 

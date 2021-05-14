@@ -125,4 +125,19 @@ public class VoterService {
         return Collections.emptyList();
     }
 
+    public void delete(Long id) {
+        Session session = HibernateConfig.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            session.delete(getVoterById(id));
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
+    }
+
 }
