@@ -50,12 +50,12 @@ public class VoterService {
         return voter;
     }
 
-    public Long getTotalCount(String entity) {
+    public Long getTotalCount() {
         Session session = HibernateConfig.openSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            Query<?> query = session.createQuery(String.format("SELECT COUNT (*) FROM %s ", entity));
+            Query<?> query = session.createQuery("SELECT COUNT (*) FROM Voter ");
             transaction.commit();
             return (Long) query.uniqueResult();
         } catch (Exception e) {

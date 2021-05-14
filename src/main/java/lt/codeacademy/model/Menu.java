@@ -3,7 +3,6 @@ package lt.codeacademy.model;
 import lt.codeacademy.config.HibernateConfig;
 import lt.codeacademy.service.CandidateService;
 import lt.codeacademy.service.MenuService;
-import lt.codeacademy.service.VoteService;
 import lt.codeacademy.service.VoterService;
 
 import java.io.IOException;
@@ -11,10 +10,9 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private final VoteService voteServiceImpl = new VoteService();
     private final VoterService voterService = new VoterService();
     private final CandidateService candidateService = new CandidateService();
-    private final MenuService menuService = new MenuService(voteServiceImpl, voterService,candidateService);
+    private final MenuService menuService = new MenuService(voterService,candidateService);
 
     public void run() throws IOException {
 
@@ -39,8 +37,7 @@ public class Menu {
                         break;
                     case 3:
                         HibernateConfig.buildSessionFactory();
-                        System.out.println("Enter entity");
-                        System.out.println("Total count: " + voterService.getTotalCount(sc.next()));
+                        System.out.println("Total vote count: " + voterService.getTotalCount());
                         break;
                     case 4:
                         HibernateConfig.buildSessionFactory();
@@ -52,9 +49,8 @@ public class Menu {
                         break;
                     case 6:
                         HibernateConfig.buildSessionFactory();
-                        System.out.println(candidateService.getWinnerOfElection());
+                        candidateService.getWinnerOfElection().forEach(item -> System.out.println("Winner is: " + item[0]+ " " + item[1] +"\nVote Count: " + item[2]));
                         break;
-
                     case 7:
 
                         break;

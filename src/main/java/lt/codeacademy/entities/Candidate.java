@@ -43,9 +43,4 @@ public class Candidate {
         return String.format("==========%nID = %d%nFIRST NAME = %s%nLAST NAME = %s%n==========",
                 getId(), firstName, lastName);
     }
-
-    public Long getId() {
-        return id;
-    }
-
 }

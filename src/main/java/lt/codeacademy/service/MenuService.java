@@ -1,6 +1,5 @@
 package lt.codeacademy.service;
 
-import lt.codeacademy.config.HibernateConfig;
 import lt.codeacademy.entities.Voter;
 import lt.codeacademy.model.constanta.City;
 import lt.codeacademy.model.constanta.Gender;
@@ -11,12 +10,10 @@ import java.util.Scanner;
 
 public class MenuService {
 
-    VoteService voteServiceImpl;
     VoterService voterService;
     CandidateService candidateService;
 
-    public MenuService(VoteService voteServiceImpl, VoterService voterService, CandidateService candidateService) {
-        this.voteServiceImpl = voteServiceImpl;
+    public MenuService( VoterService voterService, CandidateService candidateService) {
         this.voterService = voterService;
         this.candidateService = candidateService;
     }

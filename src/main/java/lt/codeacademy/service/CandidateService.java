@@ -58,7 +58,7 @@ public class CandidateService {
         List<Candidate> candidates = new ArrayList<>();
 
         try {
-            Query<Candidate> query = session.createQuery("FROM Candidate ", Candidate.class);
+            Query<Candidate> query = session.createQuery("FROM Candidate", Candidate.class);
             candidates = query.getResultList();
             transaction.commit();
         } catch (Exception e) {
@@ -70,86 +70,26 @@ public class CandidateService {
         return candidates;
     }
 
-//    public List<Object[]> getWinnerOfElection() {
-//        Session session = HibernateConfig.openSession();
-//        Transaction transaction = session.beginTransaction();
-//        List<Object[]> candidates = new ArrayList<>();
-//
-//        try {
-//            Query<Candidate> query = session.createQuery
-//                    (" SELECT Candidate.firstName, Candidate.lastName FROM Candidate JOIN Voter ON Candidate.id = Voter.candidate.id", Candidate.class);
-//            candidates = query.getResultList();
-//            transaction.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            transaction.rollback();
-//        } finally {
-//            session.close();
-//        }
-//        return candidates;
-//    }
+    public List<Object[]> getWinnerOfElection() {
 
-//    public List<Candidate> getWinnerOfElection() {
-//
-//        try (Session session = HibernateConfig.openSession()) {
-//
-//            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-//
-//            CriteriaQuery<Candidate> criteriaQuery = criteriaBuilder.createQuery(Candidate.class);
-//            Root<Candidate> root = criteriaQuery.from(Candidate.class);
-//            root.join("voters");
-//
-//            criteriaQuery.multiselect(criteriaBuilder.count(root.get("id")));
-//            criteriaQuery.groupBy(root.get("id"));
-//            Query<Candidate> query = session.createQuery(criteriaQuery);
-//
-//            return query.getResultList();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return Collections.emptyList();
-//    }
+        try (Session session = HibernateConfig.openSession()) {
 
-        public List<Candidate> getWinnerOfElection () {
-            Session session = HibernateConfig.openSession();
-            Transaction transaction = session.beginTransaction();
-            List<Candidate> winner =new ArrayList<>();
-            try {
-                Query<Candidate> query = session.createQuery
-                        ("SELECT Candidate.firstName,Candidate.lastName from Candidate \n" +
-                        "join Voter on Candidate.id = Voter.candidate.id\n" +
-                        "group by Candidate.id", Candidate.class);
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 
-                query.setMaxResults(1);
-                winner = query.getResultList();
-                transaction.commit();
-            } catch (Exception e) {
-                e.printStackTrace();
-                transaction.rollback();
-            } finally {
-                session.close();
-            }
-            return winner;
+            CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
+            Root<Candidate> root = criteriaQuery.from(Candidate.class);
+            root.join("voters");
+            criteriaQuery.multiselect(root.get("lastName"), root.get("firstName"), criteriaBuilder.count(root.get("lastName")));
+            criteriaQuery.groupBy((root.get("lastName")),root.get("firstName"));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("lastName")));
+            Query<Object[]> query = session.createQuery(criteriaQuery).setMaxResults(1);
+
+            return query.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-//    public List<Candidate> getWinnerOfElection() {
-//        Session session = HibernateConfig.openSession();
-//        Transaction transaction = session.beginTransaction();
-//        List<Candidate> winner = null;
-//        try {
-//            Query<Candidate> query = session.createQuery("SELECT Candidate.firstName, COUNT(Candidate.firstName) FROM Candidate JOIN Voter ON Candidate.id = Voter\n" +
-//                    "GROUP BY candidates.id\n" +
-//                    "having count(candidates.first_name) > 0", Candidate.class);
-//            winner = query.getResultList();
-//            transaction.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            transaction.rollback();
-//        } finally {
-//            session.close();
-//        }
-//        return winner;
-//    }
+        return Collections.emptyList();
+    }
 }
 
