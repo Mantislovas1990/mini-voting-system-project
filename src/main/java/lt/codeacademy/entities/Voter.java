@@ -52,7 +52,7 @@ public class Voter {
 
     @Override
     public String toString() {
-        return String.format("==========%nID = %d%nDATE = %s%nVOTERS AGE = %d%nGENDER = %s%nCITY: %s%n==========",
+        return String.format("ID = %d%nDATE = %s%nVOTERS AGE = %d%nGENDER = %s%nCITY: %s%n==========",
                 getId(),date, age, gender, city);
     }
 }

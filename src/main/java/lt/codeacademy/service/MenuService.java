@@ -5,7 +5,6 @@ import lt.codeacademy.model.constanta.City;
 import lt.codeacademy.model.constanta.Gender;
 import lt.codeacademy.util.DateTime;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class MenuService {
@@ -18,7 +17,7 @@ public class MenuService {
         this.candidateService = candidateService;
     }
 
-    public void menuAddVoter(Scanner sc) throws IOException {
+    public void menuAddVoter(Scanner sc) {
 
 
         System.out.println("ENTER YOUR AGE");
@@ -40,7 +39,7 @@ public class MenuService {
 
     public int action(int value) {
         if (value == 1 || value == 2 || value == 3 || value == 4 || value == 5 ||
-                value == 6 || value == 7 || value == 8 || value == 9 || value == 0) {
+                value == 6 || value == 7 ||  value == 0) {
             return value;
         }
         return -1;

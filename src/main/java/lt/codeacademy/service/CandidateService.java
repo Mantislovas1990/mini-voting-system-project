@@ -7,11 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -69,27 +65,26 @@ public class CandidateService {
         return candidates;
     }
 
-    public List<Object[]> getWinnerOfElection() {
-
-        try (Session session = HibernateConfig.openSession()) {
-
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-
-            CriteriaQuery<Object[]> criteriaQuery = criteriaBuilder.createQuery(Object[].class);
-            Root<Candidate> root = criteriaQuery.from(Candidate.class);
-            root.join("voters");
-            criteriaQuery.multiselect(root.get("lastName"), root.get("firstName"), criteriaBuilder.count(root.get("lastName"))).toString();
-            criteriaQuery.groupBy((root.get("lastName")),root.get("firstName")).toString();
-            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("lastName")));
-            Query<Object[]> query = session.createQuery(criteriaQuery).setMaxResults(1);
-
-            return query.getResultList();
-
+    public Candidate getWinnerOfElection() {
+        Session session = HibernateConfig.openSession();
+        Transaction transaction = session.beginTransaction();
+        Candidate candidate = null;
+        try {
+            Query<Long> query =
+                    session.createQuery("SELECT voter.candidate.id " +
+                            "FROM Voter voter " +
+                            "GROUP BY voter.candidate " +
+                            "ORDER BY COUNT(voter.candidate) DESC", Long.class);
+            query.setMaxResults(1).uniqueResult();
+            candidate = session.get(Candidate.class, query.getSingleResult());
+            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
+            transaction.rollback();
+        } finally {
+            session.close();
         }
-        return Collections.emptyList();
+        return candidate;
     }
-
 }
 

@@ -28,35 +28,28 @@ public class Menu {
                 int chooseAction = menuService.action(sc.nextInt());
                 switch (chooseAction) {
                     case 1:
-                        HibernateConfig.buildSessionFactory();
                         menuService.menuAddVoter(sc);
                         break;
                     case 2:
-                        HibernateConfig.buildSessionFactory();
                         voterService.getAllVoters().forEach(System.out::println);
                         break;
                     case 3:
-                        HibernateConfig.buildSessionFactory();
                         System.out.println("Total vote count: " + voterService.getTotalCount());
                         break;
                     case 4:
-                        HibernateConfig.buildSessionFactory();
-                        voterService.getVoteCountByCity().forEach(item ->
-                                System.out.println("City: " + item[0] +"\nCount: " + item[1]));
+                        System.out.println("VILNIUS VOTE COUNT: " +voterService.getVilniusVoteCount()
+                                +"\nKAUNAS VOTE COUNT: " + voterService.getKaunasVoteCount());
                         break;
                     case 5:
-                        HibernateConfig.buildSessionFactory();
-                        voterService.getVoteCountByGender().forEach(item ->
-                                System.out.println("Gender: " + item[0] +"\nCount: " + item[1]));
+                        System.out.println("MALE VOTE COUNT: " +voterService.getMaleVoteCount()
+                        +"\nFEMALE VOTE COUNT: " + voterService.getFemaleVoteCount());
                         break;
                     case 6:
-                        HibernateConfig.buildSessionFactory();
-                        candidateService.getWinnerOfElection().forEach(item ->
-                                System.out.println("Winner is: " + item[0]+ " " + item[1] +"\nVote Count: " + item[2]));
+                        System.out.println("Winner of ELECTION: "+ candidateService.getWinnerOfElection());
                         break;
                     case 7:
-                        HibernateConfig.buildSessionFactory();
-                        System.out.println("CHOOSE ID TO DELETE\n" + voterService.getAllVoters());
+                        System.out.println("CHOOSE ID TO DELETE\n");
+                        voterService.getAllVoters().forEach(System.out::println);
                         voterService.delete(sc.nextLong());
                         break;
                     case 0:
