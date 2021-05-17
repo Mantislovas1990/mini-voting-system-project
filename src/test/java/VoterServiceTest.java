@@ -63,23 +63,16 @@ class VoterServiceTest {
     }
 
     @Test
-    void getMaleVoteCountTest(){
-        assertEquals(4,voterService.getMaleVoteCount());
+    void getVoteCountByGenderTest(){
+        assertEquals(4,voterService.getVoteCountByGender(1));
+        assertEquals(3,voterService.getVoteCountByGender(2));
     }
 
     @Test
-    void getFemaleVoteCountTest(){
-        assertEquals(3,voterService.getFemaleVoteCount());
-    }
+    void getVoteCountByCity(){
+        assertEquals(3,voterService.getVoteCountByCity(1));
+        assertEquals(4,voterService.getVoteCountByCity(2));
 
-    @Test
-    void getVilniusVoteCountTest(){
-        assertEquals(3,voterService.getVilniusVoteCount());
-    }
-
-    @Test
-    void getKaunasVoteCountTest(){
-        assertEquals(4,voterService.getKaunasVoteCount());
     }
 
     @Test

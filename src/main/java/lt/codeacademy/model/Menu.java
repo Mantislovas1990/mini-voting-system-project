@@ -37,12 +37,12 @@ public class Menu {
                         System.out.println("Total vote count: " + voterService.getTotalCount());
                         break;
                     case 4:
-                        System.out.println("VILNIUS VOTE COUNT: " +voterService.getVilniusVoteCount()
-                                +"\nKAUNAS VOTE COUNT: " + voterService.getKaunasVoteCount());
+                        System.out.println("CHOOSE GENDER TO COUNT VOTES:\n1->MALE\n2->FEMALE");
+                        System.out.println(voterService.getVoteCountByGender(sc.nextInt()));
                         break;
                     case 5:
-                        System.out.println("MALE VOTE COUNT: " +voterService.getMaleVoteCount()
-                        +"\nFEMALE VOTE COUNT: " + voterService.getFemaleVoteCount());
+                        System.out.println("CHOOSE CITY TO COUNT VOTES:\n1->VILNIUS\n2->KAUNAS");
+                        System.out.println(voterService.getVoteCountByCity(sc.nextInt()));
                         break;
                     case 6:
                         System.out.println("Winner of ELECTION: "+ candidateService.getWinnerOfElection());

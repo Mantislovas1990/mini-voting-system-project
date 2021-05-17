@@ -86,7 +86,6 @@ public class VoterService {
         return voters;
     }
 
-
     public void delete(Long id) {
         Session session = HibernateConfig.openSession();
         Transaction transaction = session.beginTransaction();
@@ -102,7 +101,7 @@ public class VoterService {
         }
     }
 
-    public Long getMaleVoteCount() {
+    public Long getVoteCountByGender(int value) {
         Long result;
         Transaction transaction = null;
         try (Session session = HibernateConfig.openSession()) {
@@ -110,7 +109,7 @@ public class VoterService {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
             Root<Voter> root = query.from(Voter.class);
-            query.select(criteriaBuilder.count(root.get("gender"))).where(criteriaBuilder.equal(root.get("gender"), Gender.MALE));
+            query.select(criteriaBuilder.count(root.get("gender"))).where(criteriaBuilder.equal(root.get("gender"), Gender.convert(value)));
             result = session.createQuery(query).getSingleResult();
             transaction.commit();
         } catch (Exception e) {
@@ -122,7 +121,7 @@ public class VoterService {
         return result;
     }
 
-    public Long getFemaleVoteCount() {
+    public Long getVoteCountByCity(int value) {
         Long result;
         Transaction transaction = null;
         try (Session session = HibernateConfig.openSession()) {
@@ -130,47 +129,7 @@ public class VoterService {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
             Root<Voter> root = query.from(Voter.class);
-            query.select(criteriaBuilder.count(root.get("gender"))).where(criteriaBuilder.equal(root.get("gender"), Gender.FEMALE));
-            result = session.createQuery(query).getSingleResult();
-            transaction.commit();
-        } catch (Exception e) {
-            result = null;
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-        return result;
-    }
-
-    public Long getVilniusVoteCount() {
-        Long result;
-        Transaction transaction = null;
-        try (Session session = HibernateConfig.openSession()) {
-            transaction = session.beginTransaction();
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
-            Root<Voter> root = query.from(Voter.class);
-            query.select(criteriaBuilder.count(root.get("city"))).where(criteriaBuilder.equal(root.get("city"), City.VILNIUS));
-            result = session.createQuery(query).getSingleResult();
-            transaction.commit();
-        } catch (Exception e) {
-            result = null;
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-        return result;
-    }
-
-    public Long getKaunasVoteCount() {
-        Long result;
-        Transaction transaction = null;
-        try (Session session = HibernateConfig.openSession()) {
-            transaction = session.beginTransaction();
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
-            Root<Voter> root = query.from(Voter.class);
-            query.select(criteriaBuilder.count(root.get("city"))).where(criteriaBuilder.equal(root.get("city"), City.KAUNAS));
+            query.select(criteriaBuilder.count(root.get("city"))).where(criteriaBuilder.equal(root.get("city"), City.convert(value)));
             result = session.createQuery(query).getSingleResult();
             transaction.commit();
         } catch (Exception e) {
