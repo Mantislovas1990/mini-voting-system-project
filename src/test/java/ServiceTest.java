@@ -1,4 +1,5 @@
 import lt.codeacademy.config.HibernateConfig;
+import lt.codeacademy.entities.Candidate;
 import lt.codeacademy.entities.Voter;
 import lt.codeacademy.model.constanta.City;
 import lt.codeacademy.model.constanta.Gender;
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class VoterServiceTest {
+class ServiceTest {
 
     private final VoterService voterService = new VoterService();
     private final CandidateService candidateService = new CandidateService();
@@ -97,4 +98,15 @@ class VoterServiceTest {
     void getAllCandidatesTest(){
         assertEquals(2, candidateService.getAllCandidates().size());
     }
+
+    @Test
+    void addVoterTest(){
+        Candidate candidate = new Candidate("Testinis1","Testinis2");
+        candidateService.saveUpdate(candidate);
+
+        assertEquals("Testinis1", candidate.getFirstName());
+        assertEquals("Testinis2", candidate.getLastName());
+        assertEquals(3, candidateService.getAllCandidates().size());
+    }
+
 }
