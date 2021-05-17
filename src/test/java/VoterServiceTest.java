@@ -72,11 +72,29 @@ class VoterServiceTest {
     void getVoteCountByCity(){
         assertEquals(3,voterService.getVoteCountByCity(1));
         assertEquals(4,voterService.getVoteCountByCity(2));
-
     }
 
     @Test
     void getWinnerOfElectionTest(){
         assertEquals(1L, candidateService.getWinnerOfElection().getId());
+    }
+
+    @Test
+    void getVoterByIdTest(){
+        testVoters.forEach(testVoter -> Assertions.assertEquals(testVoter.getId(),
+                voterService.getVoterById(testVoter.getId()).getId()));
+    }
+
+    @Test
+    void deleteValueFromVoterListTest(){
+        testVoters.forEach(testVoter -> {
+            voterService.delete(testVoter.getId());
+            Assertions.assertNull(voterService.getVoterById(testVoter.getId()));
+        });
+    }
+
+    @Test
+    void getAllCandidatesTest(){
+        assertEquals(2, candidateService.getAllCandidates().size());
     }
 }
