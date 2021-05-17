@@ -59,7 +59,7 @@ class VoterServiceTest {
 
     @Test
     void getAllVotersListTest(){
-        assertEquals(testVoters, voterService.getAllVoters());
+        assertEquals(testVoters.size(), voterService.getAllVoters().size());
     }
 
     @Test
